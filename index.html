@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Provas — um jeito mais visual de ver seus arquivos na nuvem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;0,900;1,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF6EC;
+    --cream-raised:#F3ECDD;
+    --charcoal:#211E1A;
+    --charcoal-soft:#655D53;
+    --line:rgba(33,30,26,0.12);
+    --brass:#B98A3A;
+    --brass-deep:#8F6B2C;
+    --brass-soft:rgba(185,138,58,0.12);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);color:var(--charcoal);
+    font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:30;background:rgba(251,246,236,0.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .nav-row{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;max-width:1120px;margin:0 auto;}
+  .logo{font-family:'Fraunces',serif;font-weight:900;font-size:21px;letter-spacing:-0.01em;}
+  .logo .dot{color:var(--brass);}
+  .nav-links{display:flex;align-items:center;gap:28px;font-size:13.5px;color:var(--charcoal-soft);}
+  .nav-links a:hover{color:var(--charcoal);}
+  .nav-cta{
+    display:flex;align-items:center;gap:8px;background:var(--charcoal);color:var(--cream);
+    padding:9px 16px;border-radius:30px;font-size:13px;font-weight:700;
+  }
+  .nav-cta:hover{background:var(--brass-deep);}
+  @media (max-width:760px){.nav-links{display:none;}}
+
+  /* HERO */
+  .hero{padding:64px 24px 30px;}
+  .hero-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.05fr 0.95fr;gap:52px;align-items:center;}
+  @media (max-width:900px){.hero-inner{grid-template-columns:1fr;gap:40px;}}
+  .eyebrow{
+    display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--brass-deep);background:var(--brass-soft);padding:6px 12px;border-radius:20px;margin-bottom:18px;
+  }
+  h1{
+    font-family:'Fraunces',serif;font-weight:700;font-size:44px;line-height:1.08;letter-spacing:-0.01em;margin:0 0 20px;
+  }
+  h1 em{font-style:italic;color:var(--brass-deep);}
+  .hero-sub{font-size:16px;line-height:1.6;color:var(--charcoal-soft);max-width:460px;margin-bottom:30px;}
+  .hero-ctas{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .btn-google{
+    display:flex;align-items:center;gap:10px;background:var(--charcoal);color:var(--cream);
+    padding:14px 22px;border-radius:30px;font-size:14px;font-weight:700;border:none;cursor:pointer;
+  }
+  .btn-google:hover{background:var(--brass-deep);}
+  .btn-google svg{width:18px;height:18px;flex-shrink:0;}
+  .btn-ghost{font-size:13.5px;font-weight:700;color:var(--charcoal-soft);border-bottom:1px solid var(--line);padding-bottom:2px;}
+  .btn-ghost:hover{color:var(--charcoal);border-color:var(--charcoal);}
+  .waitlist-form{display:flex;gap:8px;flex-wrap:wrap;}
+  .waitlist-form input{
+    flex:1 1 220px;padding:14px 16px;border:1px solid var(--line);border-radius:30px;
+    font-family:'DM Sans',sans-serif;font-size:14px;background:#fff;color:var(--charcoal);outline:none;
+  }
+  .waitlist-form input:focus{border-color:var(--brass);}
+  .waitlist-form button{
+    background:var(--charcoal);color:var(--cream);border:none;padding:14px 24px;border-radius:30px;
+    font-family:'DM Sans',sans-serif;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;
+  }
+  .waitlist-form button:hover{background:var(--brass-deep);}
+  .hero-microcopy{font-size:12px;color:var(--charcoal-soft);margin-top:14px;}
+  .cloud-picker{display:flex;align-items:center;gap:12px;margin-top:20px;flex-wrap:wrap;}
+  .cloud-picker-label{font-size:11.5px;color:var(--charcoal-soft);}
+  .cloud-chip{
+    display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:500;
+    border:1px solid var(--line);border-radius:20px;padding:5px 12px 5px 8px;color:var(--charcoal-soft);
+  }
+  .cloud-chip i{width:9px;height:9px;border-radius:3px;display:inline-block;}
+
+  /* HERO VISUAL: before/after */
+  .transform{display:flex;align-items:center;gap:6px;}
+  .transform-card{
+    flex:1;background:var(--cream-raised);border:1px solid var(--line);border-radius:14px;padding:16px;
+  }
+  .transform-label{font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--charcoal-soft);margin-bottom:10px;}
+  .drive-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;font-size:11.5px;color:var(--charcoal-soft);}
+  .drive-row .ic{width:14px;height:14px;border-radius:3px;background:#DCE4F0;flex-shrink:0;}
+  .drive-row span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .transform-arrow{
+    flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--brass);color:#241a0a;
+    display:flex;align-items:center;justify-content:center;font-size:15px;
+  }
+  .after-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
+  .after-grid div{aspect-ratio:1/1;border-radius:4px;background:linear-gradient(135deg,#2b2822,#1a1712);}
+  .after-grid div:nth-child(1){background:linear-gradient(135deg,#3a2f1c,#1c1712);}
+  .after-grid div:nth-child(5){background:var(--brass);}
+  @media (max-width:900px){.transform{flex-direction:column;}.transform-arrow{transform:rotate(90deg);}}
+
+  /* TRUST STRIP */
+  .trust-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 24px;margin-top:50px;}
+  .trust-strip .wrap{display:flex;gap:34px;flex-wrap:wrap;justify-content:center;font-size:12.5px;color:var(--charcoal-soft);}
+  .trust-strip b{color:var(--charcoal);}
+
+  /* STEPS */
+  section{padding:80px 24px;}
+  .section-head{max-width:560px;margin:0 auto 48px;text-align:center;}
+  .section-eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brass-deep);margin-bottom:10px;}
+  .section-title{font-family:'Fraunces',serif;font-weight:700;font-size:30px;letter-spacing:-0.01em;}
+  .steps{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:36px;}
+  @media (max-width:860px){.steps{grid-template-columns:1fr;gap:44px;}}
+  .step{position:relative;padding-top:8px;}
+  .step-num{
+    font-family:'Fraunces',serif;font-weight:900;font-size:15px;color:var(--brass);
+    border:1px solid var(--line);width:38px;height:38px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;margin-bottom:20px;
+  }
+  .step-title{font-family:'Fraunces',serif;font-weight:700;font-size:18px;margin-bottom:8px;}
+  .step-text{font-size:14px;color:var(--charcoal-soft);line-height:1.6;}
+  .step-connector{
+    position:absolute;top:19px;left:100%;width:36px;height:1px;background:var(--line);
+  }
+  @media (max-width:860px){.step-connector{display:none;}}
+
+  /* PILLARS */
+  .pillars-bg{background:var(--charcoal);color:var(--cream);}
+  .pillars-bg .section-title{color:var(--cream);}
+  .pillars-bg .section-eyebrow{color:var(--brass);}
+  .pillars{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(246,241,231,0.10);border-radius:16px;overflow:hidden;}
+  @media (max-width:860px){.pillars{grid-template-columns:1fr;}}
+  .pillar{background:var(--charcoal);padding:32px 28px;}
+  .pillar-title{font-family:'Fraunces',serif;font-weight:600;font-style:italic;font-size:17px;margin-bottom:10px;color:var(--brass);}
+  .pillar-text{font-size:13.5px;line-height:1.6;color:rgba(246,241,231,0.62);}
+
+  /* FINAL CTA */
+  .final-cta{text-align:center;padding:90px 24px 100px;}
+  .final-cta .section-title{font-size:34px;margin-bottom:14px;}
+  .final-cta-sub{font-size:14.5px;color:var(--charcoal-soft);margin-bottom:32px;}
+
+  footer{border-top:1px solid var(--line);padding:26px 24px;text-align:center;font-size:12px;color:var(--charcoal-soft);}
+  footer .logo{font-size:14px;vertical-align:middle;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-row">
+    <div class="logo">Provas<span class="dot">.</span></div>
+    <div class="nav-links">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#continua-seu">Por que a nuvem</a>
+      <a href="#comecar">Preços</a>
+    </div>
+    <a href="#comecar" class="nav-cta">Entrar na lista</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow">Fotos, vídeos e arquivos na nuvem</span>
+      <h1>Um jeito mais <em>visual</em> de olhar e avaliar o que já está na sua nuvem.</h1>
+      <p class="hero-sub">Provas conecta com o Google Drive, Dropbox ou OneDrive e transforma qualquer pasta cheia de arquivo numa grade rápida pra favoritar, dar nota e organizar. Sozinho, pra você mesmo — ou compartilhando um link com quem você quiser envolver na avaliação.</p>
+      <div class="hero-ctas">
+        <form class="waitlist-form" action="https://formspree.io/f/SEU_ID_AQUI" method="POST">
+          <input type="email" name="email" placeholder="seu@email.com" required>
+          <button type="submit">Quero testar</button>
+        </form>
+      </div>
+      <a href="#como-funciona" class="btn-ghost" style="margin-top:2px;display:inline-block;">Ver como funciona ↓</a>
+      <div class="cloud-picker">
+        <span class="cloud-picker-label">vai funcionar com</span>
+        <span class="cloud-chip">Google Drive</span>
+        <span class="cloud-chip"><i style="background:#0061FE;"></i>Dropbox</span>
+        <span class="cloud-chip"><i style="background:#0364B8;"></i>OneDrive</span>
+      </div>
+      <div class="hero-microcopy">Ainda em construção — entre na lista e avisamos assim que abrir pra teste</div>
+    </div>
+
+    <div class="transform">
+      <div class="transform-card">
+        <div class="transform-label">Sua pasta hoje</div>
+        <div class="drive-row"><div class="ic"></div><span>IMG_04412_final_v3.jpg</span></div>
+        <div class="drive-row"><div class="ic"></div><span>DSC_0091_editada.jpg</span></div>
+        <div class="drive-row"><div class="ic"></div><span>viagem_078.jpg</span></div>
+        <div class="drive-row"><div class="ic"></div><span>IMG_04413.jpg</span></div>
+        <div class="drive-row"><div class="ic"></div><span>_MG_2231-Recovered.jpg</span></div>
+      </div>
+      <div class="transform-arrow">→</div>
+      <div class="transform-card" style="background:#1c1712;border-color:rgba(246,241,231,0.1);">
+        <div class="transform-label" style="color:rgba(246,241,231,0.5);">Sua galeria visual</div>
+        <div class="after-grid">
+          <div></div><div></div><div></div><div></div><div></div><div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="wrap">
+    <span><b>Zero</b> re-upload de arquivo</span>
+    <span><b>Sem</b> limite de armazenamento à parte</span>
+    <span><b>Compartilhar</b> é opcional, você decide</span>
+  </div>
+</div>
+
+<section id="como-funciona">
+  <div class="section-head">
+    <div class="section-eyebrow">Como funciona</div>
+    <div class="section-title">Três passos, sem curva de aprendizado</div>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Conecte sua nuvem</div>
+      <div class="step-text">Google Drive, Dropbox ou OneDrive — escolha a pasta que vira a galeria. A autorização é só de leitura.</div>
+      <div class="step-connector"></div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Veja tudo de forma visual</div>
+      <div class="step-text">Grade rápida em vez de lista de arquivo. Sem baixar nada, sem esperar a pasta carregar.</div>
+      <div class="step-connector"></div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Avalie e organize</div>
+      <div class="step-text">Favorite, dê nota, marque grupos. Se quiser envolver mais alguém na avaliação, é só gerar um link — mas funciona igual de bem sozinho.</div>
+    </div>
+  </div>
+</section>
+
+<section id="continua-seu" class="pillars-bg">
+  <div class="section-head">
+    <div class="section-eyebrow">Por que direto da nuvem</div>
+    <div class="section-title">Continua sendo o seu acervo</div>
+  </div>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-title">Nada muda de lugar</div>
+      <div class="pillar-text">Os arquivos ficam exatamente onde você já organiza tudo. A galeria é só um jeito mais visual de olhar a mesma pasta.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-title">Sem outra assinatura de espaço</div>
+      <div class="pillar-text">O armazenamento continua sendo o seu, no Drive, Dropbox ou OneDrive. Você não paga por GB duas vezes.</div>
+    </div>
+    <div class="pillar">
+      <div class="pillar-title">Compartilhar é você quem decide</div>
+      <div class="pillar-text">Use sozinho pra organizar seu próprio acervo, ou gere um link quando quiser a opinião de mais alguém. Revogue quando quiser.</div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta" id="comecar">
+  <div class="section-title">Pronto pra ver sua pasta de outro jeito?</div>
+  <div class="final-cta-sub">Entre na lista — avisamos assim que abrir pra teste.</div>
+  <form class="waitlist-form" action="https://formspree.io/f/SEU_ID_AQUI" method="POST" style="max-width:420px;margin:0 auto;">
+    <input type="email" name="email" placeholder="seu@email.com" required>
+    <button type="submit">Quero testar</button>
+  </form>
+  <div class="cloud-picker" style="justify-content:center;margin-top:18px;">
+    <span class="cloud-picker-label">vai funcionar com</span>
+    <span class="cloud-chip">Google Drive</span>
+    <span class="cloud-chip"><i style="background:#0061FE;"></i>Dropbox</span>
+    <span class="cloud-chip"><i style="background:#0364B8;"></i>OneDrive</span>
+  </div>
+</section>
+
+<footer>
+  <span class="logo">Provas<span style="color:var(--brass);">.</span></span> — um jeito mais visual de olhar o que já está na sua nuvem.
+</footer>
+
+</body>
+</html>
